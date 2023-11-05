@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/header.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="CSS/projects.css">
+    <title>Aman Mahavar | Project</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
+    <style> 
+        /* CSS for styling the buttons */
+        
+    </style>
+
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="header_heading"><h1><a href="#"> AMAN MAHAVAR</a></h1></div>
+            <div class="header_nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#">Resume</a></li>
+                    <li><a href="">Projects</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="header_btn">
+                <button id="btn"> <i class="fa fa-bars"></i></i></button>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="heading">
+            My Work
+        </div>
+        <div class="project_item">
+            <div class="slider" id="slider" >
+                <!-- project item displaing here -->
+            </div>
+        <button class="slider-btn prev-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+        <button class="slider-btn next-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+            
+        </div>
+
+       
+    </main>
+
+    <script>
+        const slider = document.querySelector(".slider");
+        const prevBtn = document.getElementById("prevBtn");
+        const nextBtn = document.getElementById("nextBtn");
+        const imagePlaceholder = document.getElementById("slider");
+        const images = ["Assets/Card.png", "Assets/Calculator.png", "Assets/Cryptoeed.png","Assets/Climaa.png","Assets/Snake.png", "Assets/BMI.png"];
+        const projectName = ["My Card", "Calculator", "Cryptoeed","Clima", "Snake","BMI Calculator"];
+        let currentIndex = 0;
+        let autoSlideInterval;
+
+        // Function to update the displayed image with a smooth transition
+        function updateImage() {
+            imagePlaceholder.innerHTML = `
+                <div  id="imagePlaceholder"><img src="${images[currentIndex]}" alt=" ${projectName[currentIndex]}"></div>
+                <div class="project_heading"> ${projectName[currentIndex]}
+            </div>  `;
+            // setTimeout(() => {
+            //     imagePlaceholder.querySelector('img').style.opacity = 1; // Make the image visible
+            // }, 10); // Delay to ensure smooth transition
+            
+            clearInterval(autoSlideInterval);
+            startAutoSlide();
+        }
+
+        // Function to go to the previous image
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            imagePlaceholder.querySelector('img').style.opacity = 0; // Hide the current image
+            setTimeout(() => {
+                updateImage();
+            }, 500); 
+            // Wait for the transition to complete
+        }
+
+        // Function to go to the next image
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % images.length;
+            imagePlaceholder.querySelector('img').style.opacity = 0; // Hide the current image
+            setTimeout(() => {
+                updateImage();
+            }, 500); // Wait for the transition to complete
+        }
+
+        // Function to start automatic sliding
+        function startAutoSlide() {
+            autoSlideInterval = setInterval(nextImage, 5000); // Change image every 5 seconds (adjust as needed)
+        }
+
+        // Preload the images
+        function preloadImages() {
+            images.forEach((imageSrc) => {
+                const img = new Image();
+                img.src = imageSrc;
+            });
+        }
+
+        // Preload the images before starting the slider
+        preloadImages();
+        // Initially display the first image and start automatic sliding
+        updateImage();
+
+        // Event listeners for the buttons
+        prevBtn.addEventListener("click", prevImage);
+        nextBtn.addEventListener("click", nextImage);
+
+        // Pause automatic sliding when hovering over the slider
+        slider.addEventListener("mouseover", () => {
+            clearInterval(autoSlideInterval);clearInterval(autoSlideInterval);
+        });
+
+        // Resume automatic sliding when not hovering over the slider
+        slider.addEventListener("mouseout", () => {
+            startAutoSlide();
+        });
+    </script>
+    <script src="https://unpkg.com/typed.js@2.0.15/dist/typed.umd.js"></script>
+    <script src="header.js"></script>
+</body>
+</html>
